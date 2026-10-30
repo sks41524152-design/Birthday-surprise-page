@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magical Birthday Surprise</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Trebuchet MS', sans-serif;
+  text-align: center;
+  color: white;
+  overflow-x: hidden;
+  background: linear-gradient(135deg,#180c3d,#54216e,#ec609a);
+}
+
+.container {
+  padding: 35px 15px;
+  position: relative;
+  z-index: 2;
+}
+
+h1 {
+  font-size: clamp(35px,8vw,55px);
+  color: #ffe78a;
+  text-shadow: 0 0 15px #ff75bd;
+  animation: glow 2s infinite alternate;
+}
+
+.subtitle {
+  margin: 15px 0 25px;
+  font-size: 17px;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px pink; }
+  to { text-shadow: 0 0 25px #fff, 0 0 35px pink; }
+}
+
+/* Floating balloons */
+
+.balloon {
+  position: fixed;
+  bottom: -120px;
+  font-size: 48px;
+  animation: fly 10s linear infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.balloon:nth-child(1) { left: 8%; animation-delay: 0s; }
+.balloon:nth-child(2) { left: 30%; animation-delay: 3s; }
+.balloon:nth-child(3) { left: 65%; animation-delay: 1s; }
+.balloon:nth-child(4) { left: 88%; animation-delay: 5s; }
+
+@keyframes fly {
+  0% { transform: translateY(0) rotate(0); }
+  100% { transform: translateY(-120vh) rotate(25deg); }
+}
+
+/* Floating hearts */
+
+.heart {
+  position: fixed;
+  bottom: -30px;
+  animation: heartFly 8s linear infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes heartFly {
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Cake */
+
+.cake {
+  font-size: 100px;
+  margin: 20px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* Gift boxes */
+
+.gifts {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(120px,160px));
+  justify-content: center;
+  gap: 20px;
+  margin: 30px auto;
+}
+
+.gift {
+  border: 2px solid #ffe78a;
+  border-radius: 18px;
+  background: rgba(255,255,255,.15);
+  padding: 20px 10px;
+  cursor: pointer;
+  transition: .4s;
+  color: white;
+  font-size: 17px;
+  animation: giftGlow 2s infinite alternate;
+}
+
+.gift span {
+  display: block;
+  font-size: 55px;
+  margin-bottom: 10px;
+}
+
+.gift:hover {
+  transform: scale(1.12) rotate(5deg);
+  background: rgba(255,255,255,.3);
+}
+
+@keyframes giftGlow {
+  to { box-shadow: 0 0 18px #ffacd8; }
+}
+
+/* Letter */
+
+.letter {
+  max-width: 420px;
+  margin: 30px auto;
+  padding: 25px;
+  border-radius: 20px;
+  background: #fff0ce;
+  color: #74385c;
+  box-shadow: 0 0 25px #ff9ccc;
+  cursor: pointer;
+  transition: .4s;
+}
+
+.letter:hover {
+  transform: scale(1.04);
+}
+
+.letter span {
+  display: block;
+  font-size: 65px;
+  animation: bounce 2s infinite;
+}
+
+.letter h2 {
+  margin: 10px;
+}
+
+.main-button {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(45deg,#ff438a,#ffb347);
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 20px pink;
+  transition: .3s;
+}
+
+.main-button:hover {
+  transform: scale(1.1);
+}
+
+/* Popup */
+
+.popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10,0,25,.85);
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.popup-content {
+  background: #fff0df;
+  color: #74385c;
+  width: 100%;
+  max-width: 400px;
+  padding: 30px 20px;
+  border-radius: 22px;
+  animation: popupShow .5s ease;
+}
+
+.popup-content h2 {
+  margin-bottom: 15px;
+  color: #e84393;
+}
+
+.popup-content p {
+  line-height: 1.8;
+  font-size: 17px;
+}
+
+.close {
+  margin-top: 20px;
+  padding: 10px 25px;
+  border: none;
+  background: #e84393;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+@keyframes popupShow {
+  from { transform: scale(.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Confetti */
+
+.confetti {
+  position: fixed;
+  top: -20px;
+  width: 10px;
+  height: 14px;
+  z-index: 20;
+  pointer-events: none;
+  animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+footer {
+  margin: 35px 0 10px;
+  color: #ffe2f2;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Balloons -->
+<div class="balloon">🎈</div>
+<div class="balloon">🎈</div>
+<div class="balloon">🎈</div>
+<div class="balloon">🎈</div>
+
+<div class="container">
+
+  <h1>🎉 Happy Birthday! 🎉</h1>
+
+  <p class="subtitle">
+    A Magical Surprise Is Waiting For You! 💖
+  </p>
+
+  <div class="cake">🎂</div>
+
+  <h2>Choose Your Special Gift 🎁</h2>
+
+  <div class="gifts">
+
+    <button class="gift" onclick="openGift(1)">
+      <span>🎁</span>
+      Gift Number 1
+    </button>
+
+    <button class="gift" onclick="openGift(2)">
+      <span>🎀</span>
+      Gift Number 2
+    </button>
+
+    <button class="gift" onclick="openGift(3)">
+      <span>💝</span>
+      Gift Number 3
+    </button>
+
+    <button class="gift" onclick="openGift(4)">
+      <span>🎊</span>
+      Gift Number 4
+    </button>
+
+  </div>
+
+  <div class="letter" onclick="openLetter()">
+    <span>💌</span>
+    <h2>A Special Letter For You</h2>
+    <p>Tap Here To Open Your Letter ❤️</p>
+  </div>
+
+  <button class="main-button" onclick="celebrate()">
+    🎉 Celebrate Birthday!
+  </button>
+
+  <footer>
+    Made With Love ❤️ Just For You
+  </footer>
+
+</div>
+
+<!-- Popup -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <h2 id="popupTitle">Surprise!</h2>
+    <p id="popupMessage"></p>
+    <button class="close" onclick="closePopup()">
+      Close ❤️
+    </button>
+  </div>
+</div>
+
+<script>
+
+// Gift messages
+
+const gifts = {
+  1: "🎁 Surprise! May your life always be full of happiness!",
+  2: "🎀 You are special! Keep smiling every day!",
+  3: "💝 Sending you lots of love and beautiful wishes!",
+  4: "🎊 May all your dreams come true! Happy Birthday!"
+};
+
+// Open gifts
+
+function openGift(number) {
+  document.getElementById("popupTitle").innerText =
+    "🎉 Your Gift Is Open!";
+
+  document.getElementById("popupMessage").innerText =
+    gifts[number];
+
+  showPopup();
+  confetti();
+}
+
+// Open letter
+
+function openLetter() {
+  document.getElementById("popupTitle").innerText =
+    "💌 A Letter For You";
+
+  document.getElementById("popupMessage").innerText =
+    "Dear Special Friend, May your life be filled with happiness, love, success and beautiful memories. Never stop smiling. You deserve all the wonderful things in this world. Happy Birthday! ❤️";
+
+  showPopup();
+  confetti();
+}
+
+// Show popup
+
+function showPopup() {
+  document.getElementById("popup").style.display = "flex";
+}
+
+// Close popup
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+
+// Birthday celebration
+
+function celebrate() {
+  document.getElementById("popupTitle").innerText =
+    "🎂 Happy Birthday!";
+
+  document.getElementById("popupMessage").innerText =
+    "🎉 Hooray! Today is your special day! Enjoy every moment and keep shining! ❤️";
+
+  showPopup();
+  confetti();
+}
+
+// Confetti animation
+
+function confetti() {
+  const colors = [
+    "#ff4081",
+    "#ffeb3b",
+    "#00e5ff",
+    "#aaff00",
+    "#ff9800"
+  ];
+
+  for(let i=0; i<90; i++) {
+    let piece = document.createElement("div");
+
+    piece.className = "confetti";
+    piece.style.left = Math.random()*100 + "vw";
+    piece.style.background =
+      colors[Math.floor(Math.random()*colors.length)];
+
+    piece.style.animationDuration =
+      (2 + Math.random()*3) + "s";
+
+    document.body.appendChild(piece);
+
+    setTimeout(() => piece.remove(), 5000);
+  }
+}
+
+// Floating hearts
+
+setInterval(() => {
+  let heart = document.createElement("div");
+
+  heart.className = "heart";
+  heart.innerText = ["❤️","💖","💕","✨","⭐"][
+    Math.floor(Math.random()*5)
+  ];
+
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.fontSize = (15+Math.random()*25) + "px";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 8000);
+
+}, 700);
+
+</script>
+
+</body>
+  </html>
